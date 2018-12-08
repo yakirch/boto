@@ -1,0 +1,6 @@
+def args_parser():
+    """ validate arguments and return them """
+    parser = argparse.ArgumentParser(add_help=True, description="VPC Arguments")
+    parser.add_argument("--region", "-r", help="Get target region",
+                        required=True)
+    return parser.parse_args()

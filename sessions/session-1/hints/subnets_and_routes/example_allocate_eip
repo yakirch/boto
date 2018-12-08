@@ -1,0 +1,6 @@
+def allocate_address():
+    """ Allocate elastic IP address and return the response """
+    response = EC2.allocate_address(
+    )
+    return response
+

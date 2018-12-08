@@ -1,0 +1,5 @@
+def create_vpc(cidr, tenancy):
+    """ Return VPC description after creation """
+    response = EC2.create_vpc(CidrBlock=cidr, InstanceTenancy=tenancy)
+    return response
+

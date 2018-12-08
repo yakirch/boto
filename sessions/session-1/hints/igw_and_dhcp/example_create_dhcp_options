@@ -1,0 +1,14 @@
+def create_dhcp_options():
+    """ Return description of created dhcp options """
+    response = EC2.create_dhcp_options(
+        DhcpConfigurations=[
+            {
+                'Key': 'domain-name-servers',
+                'Values': [
+                    '10.21.0.10',
+                    '10.21.2.10',
+                ],
+            },
+        ],
+    )
+    return response

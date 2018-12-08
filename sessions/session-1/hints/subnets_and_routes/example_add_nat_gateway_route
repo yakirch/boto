@@ -1,0 +1,11 @@
+def add_nat_gateway_route(route_table_id, destination, nat_gateway_id):
+    """ Gets route table id, destination(default gateway in our case)
+        and nat gateway id and create a default gateway route in the
+        given route table, return the response
+    """
+    response = EC2.create_route(
+        DestinationCidrBlock=destination,
+        RouteTableId=route_table_id,
+        NatGatewayId=nat_gateway_id
+    )
+    return response

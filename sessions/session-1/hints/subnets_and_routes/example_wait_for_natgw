@@ -1,0 +1,13 @@
+def wait_for_nat_gateway(nat_gateway_id):
+    """ Use waiter method to wait till the nat gateway is ready """
+    waiter = EC2.get_waiter('nat_gateway_available')
+    print("Starting wait loop till Nat Gateway is available")
+    waiter.wait(
+        NatGatewayIds=[
+            nat_gateway_id,
+            ],
+        WaiterConfig={
+            'Delay': 20,
+            'MaxAttempts': 15
+        }
+    )
