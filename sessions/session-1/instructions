@@ -17,13 +17,13 @@ II) Create dhcp_options - set domain-name-servers to ip's 10.21.0.10, 10.21.2.10
 III) Associate the internet gateway and the dhcp_options with the VPC
 
 
-3) Create 2 subnets in us-east-1c and tag them Private_subnet_1c, Public_subnet_1c
+3) Create 2 subnets in us-east-1c and tag them Private_1c, Public_1c
 4) Create a nat gateway, make sure to use the PRivate subnet as SubnetId
-5) Create 2 route tables and tag them Private-route-1c & Public-route-1c
-6) create the following routes in Private-route-1c:
+5) Create 2 route tables and tag them Private-1c & Public-1c
+6) create the following routes in Private-1c:
 0.0.0.0/0 nat_gateway_id
 
-7) Create the following routes in Public-route-1c:
+7) Create the following routes in Public-1c:
 0.0.0.0/0 internet_gateway_id
 
 8) Associate the private and public route tables with the pricate and public subnets accordingly 
