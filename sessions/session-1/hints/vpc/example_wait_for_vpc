@@ -1,0 +1,4 @@
+VPC_ID = VPC_RESPONSE['Vpc']['VpcId']
+VPC = EC2_RESOURCE.Vpc(VPC_ID)
+VPC.wait_until_exists()
+

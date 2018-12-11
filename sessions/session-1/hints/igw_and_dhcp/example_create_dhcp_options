@@ -5,8 +5,8 @@ def create_dhcp_options():
             {
                 'Key': 'domain-name-servers',
                 'Values': [
-                    '10.21.0.10',
-                    '10.21.2.10',
+                    'x.x.x.x',
+                    'y.y.y.y',
                 ],
             },
         ],

@@ -1,0 +1,4 @@
+def create_internet_gateway():
+    """ Return description of created internet gateway """
+    response = EC2.create_internet_gateway()
+    return response

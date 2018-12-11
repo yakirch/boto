@@ -1,0 +1,6 @@
+def create_route_table(vpc_id):
+    """ Get a vpc id and create a route table, return it's description"""
+    response = EC2.create_route_table(
+        VpcId=vpc_id
+    )
+    return response

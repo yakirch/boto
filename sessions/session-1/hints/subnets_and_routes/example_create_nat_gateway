@@ -1,0 +1,11 @@
+def create_nat_gateway(subnet_id, eip):
+    """ Get subnet id, elastic ip and creates a
+        Nat gateway in the subnet id, using the
+        elastic ip given
+    """
+    response = EC2.create_nat_gateway(
+        AllocationId=eip,
+        SubnetId=subnet_id
+    )
+    return response
+
