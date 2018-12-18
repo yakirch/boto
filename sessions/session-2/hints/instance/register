@@ -1,0 +1,10 @@
+def register_instance_to_elb(instance_id):
+    response_register = ELB_CLIENT.register_instances_with_load_balancer(
+        LoadBalancerName=config.ELB_NAME,
+        Instances=[
+            {
+                'InstanceId': instance_id
+            },
+        ]
+    )
+    return response_register

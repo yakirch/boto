@@ -1,0 +1,9 @@
+def create_load_balancer():
+    ELB_CLIENT.create_load_balancer(
+        LoadBalancerName=config.ELB_NAME,
+        Listeners=config.ELB_LISTENERS,
+        Subnets=config.ELB_SUBNET_ID,
+        SecurityGroups=[SG_ELB_ID],
+        Scheme=config.ELB_SCHEME
+    )
+

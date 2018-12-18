@@ -1,0 +1,62 @@
+So, what are we going to do today?
+
+1) Create a python script that return 200 http get request to port 8080, /healthcheck
+2) Create a container that run the python script, push it to docker HUB
+3) Create a security group that open 8080 to internal traffic
+4) Create a security group that open 8080 to traffic from outside
+5) Create an instance
+7) Register the instance to the ELB
+8) Make sure that the instance will pass the ELB health check
+
+
+*************************************************************************************************************************
+Session instructions:
+
+
+1) Make sure you deleted all resources from session-1 and run git pull on boto repo!
+2) Create the vpc, internet gw, natgw, subnets, route table with session-1 scripts
+3) Let's create a simple flask that run on port 8080 and answer /healthcheck
+
+See hints/flask/webapp.py   
+
+4) Create a Dockerfile that will run webapp.py
+
+See hints/docker/Dockerfile
+
+5) build, tag and push your image to your docker hub repository:
+
+Example (using my repo, you need to use yours...):
+
+docker build --no-cache . -t flask101
+docker tag flask1 yourrepo/flask101
+docker push yourrepo/flask101
+ 
+
+** For those who want to skip directly into boto stage, i have prepared: relmos/flask1 available as public **
+
+6) Edit the config.py with the relevant VPC_ID, INSTANCE_SUBNET_ID, ELB_SUBNET_ID of the resources you created at (2)
+
+
+7) Create a security group for the instance using the config data: INSTANCE_SG_NAME as GroupName, INSTANCE_SG_DESCRIPTION as Description, authorize it with INSTANCE_SG_RULE
+
+hints/securitygroups/instancesg
+
+8) Same as for the ELB using: ELB_SG_NAME, ELB_SG_DESCRIPTION, ELB_SG_RULES 
+
+9) Create a load balancer
+
+hints/loadbalancer/create
+
+10) config health check for the load balancer
+
+hints/loadbalancer/healthcheck
+
+11) Create an instance, in the private subnet, that use the internal security group, with addtiona GP2 ebs of 10g
+   ** Make sure to set the instance with userdata that run the python app automatically after provision **
+
+hints/instance/create
+
+12) Register the instance to the ELB
+
+
+

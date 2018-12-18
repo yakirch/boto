@@ -1,0 +1,38 @@
+def create_instance(security_group_id):
+    ec2_resource = boto3.resource('ec2', region_name=config.REGION)
+    response_instance = ec2_resource.create_instances(
+        ImageId=config.AMI_ID,
+        TagSpecifications=
+              [
+                  {
+                      'ResourceType': 'instance',
+                      'Tags': [
+                          {
+                              'Key': 'Name',
+                              'Value': config.INSTANCE_NAME
+                          }
+                      ]
+                  },
+              ],
+              MinCount=1,
+              MaxCount=1,
+              KeyName="test-meetups",
+              InstanceType = "t2.micro",
+              SecurityGroupIds=[
+                  security_group_id
+              ],
+              SubnetId=config.INSTANCE_SUBNET_ID,
+              UserData=config.USERDATA,
+              BlockDeviceMappings=
+              [
+                  {
+                     'DeviceName': '/dev/sdb',
+                     'Ebs': {
+                     'DeleteOnTermination': True,
+                     'VolumeSize': 10,
+                     'VolumeType': 'gp2',
+                     'Encrypted': True,
+                  }
+              },
+              ])
+    return response_instance
