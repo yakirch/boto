@@ -14,7 +14,7 @@ ELB_SG_NAME = "Ops-school-external-access"
 ELB_SG_DESCRIPTION = "security group for external access"
 ELB_SG_RULES = \
     [{
-        'FromPort': 80,
+        'FromPort': 8080,
         'IpRanges': [{
         'CidrIp': '0.0.0.0/0',
         'Description': 'open from the world to the ELB'
