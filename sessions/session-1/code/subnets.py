@@ -138,11 +138,12 @@ if __name__ == '__main__':
         ROUTE_TABLE_ID = create_route_table(ARGS.vpc)['RouteTable']['RouteTableId']
         create_tags(ROUTE_TABLE_ID, "Name", k)
         SUBNET_ID[k] = create_subnet("us-east-1c", SUBNETS[k], ARGS.vpc)['Subnet']['SubnetId']
-        associate_route_table(ROUTE_TABLE_ID, SUBNET_ID)
-        create_tags(SUBNET_ID, "Name", k)
+        associate_route_table(ROUTE_TABLE_ID, SUBNET_ID[k])
+        create_tags(SUBNET_ID[k], "Name", k)
         if "Public" in k:
             add_internet_gateway_route(ROUTE_TABLE_ID, "0.0.0.0/0", ARGS.igw)
         else:
+            print(k)
             ELASTIC_IP = allocate_address()['AllocationId']
             NAT_GATEWAY_ID = create_nat_gateway(SUBNET_ID['Public_1c'], ELASTIC_IP)['NatGateway']['NatGatewayId']
             wait_for_nat_gateway(NAT_GATEWAY_ID)
