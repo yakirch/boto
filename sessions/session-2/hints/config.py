@@ -34,7 +34,7 @@ ELB_LISTENERS = \
     [{
     'InstancePort': 8080,
     'InstanceProtocol': 'HTTP',
-    'LoadBalancerPort': 80,
+    'LoadBalancerPort': 8080,
     'Protocol': 'HTTP',
     }]
 ELB_HEALTH = "HTTP:8080/healthcheck"
