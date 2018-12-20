@@ -130,22 +130,22 @@ if __name__ == '__main__':
     ARGS = args_parser()
     EC2 = boto3.client('ec2', ARGS.region)
     SUBNET_ID = {}
+    ROUTE_TABLE_ID = {}
     SUBNETS = {
         "Private_1c":"10.21.0.0/23",
         "Public_1c":"10.21.2.0/23"
     }
+
     for k in SUBNETS:
-        ROUTE_TABLE_ID = create_route_table(ARGS.vpc)['RouteTable']['RouteTableId']
-        create_tags(ROUTE_TABLE_ID, "Name", k)
+        ROUTE_TABLE_ID[k] = create_route_table(ARGS.vpc)['RouteTable']['RouteTableId']
+        create_tags(ROUTE_TABLE_ID[k], "Name", k)
         SUBNET_ID[k] = create_subnet("us-east-1c", SUBNETS[k], ARGS.vpc)['Subnet']['SubnetId']
-        associate_route_table(ROUTE_TABLE_ID, SUBNET_ID[k])
+        associate_route_table(ROUTE_TABLE_ID[k], SUBNET_ID[k])
         create_tags(SUBNET_ID[k], "Name", k)
-        if "Public" in k:
-            add_internet_gateway_route(ROUTE_TABLE_ID, "0.0.0.0/0", ARGS.igw)
-        else:
-            print(k)
-            ELASTIC_IP = allocate_address()['AllocationId']
-            NAT_GATEWAY_ID = create_nat_gateway(SUBNET_ID['Public_1c'], ELASTIC_IP)['NatGateway']['NatGatewayId']
-            wait_for_nat_gateway(NAT_GATEWAY_ID)
-            add_nat_gateway_route(ROUTE_TABLE_ID, "0.0.0.0/0", NAT_GATEWAY_ID)
-            create_tags(NAT_GATEWAY_ID, "name", "Nat_gateway_1")
+
+    add_internet_gateway_route(ROUTE_TABLE_ID['Public_1c'], "0.0.0.0/0", ARGS.igw)
+    ELASTIC_IP = allocate_address()['AllocationId']
+    NAT_GATEWAY_ID = create_nat_gateway(SUBNET_ID['Public_1c'], ELASTIC_IP)['NatGateway']['NatGatewayId']
+    wait_for_nat_gateway(NAT_GATEWAY_ID)
+    add_nat_gateway_route(ROUTE_TABLE_ID['Private_1c'], "0.0.0.0/0", NAT_GATEWAY_ID)
+    create_tags(NAT_GATEWAY_ID, "name", "Nat_gateway_1")
