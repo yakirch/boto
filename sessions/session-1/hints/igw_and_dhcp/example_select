@@ -1,7 +1,0 @@
-def select_vpc(vpc_ids):
-    """ Retrun a selected vpc id chosen by user """
-    print("Select vpc to act on:")
-    for vpc_id in vpc_ids:
-        print(vpc_id)
-    id_selected = input("Enter id: ")
-    return id_selected

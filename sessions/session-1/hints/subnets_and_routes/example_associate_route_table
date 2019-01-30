@@ -1,9 +1,0 @@
-def associate_route_table(route_table_id, subnet_id):
-    """ Gets route table id and subnet id and associate the route table
-        to the subnet
-    """
-    response = EC2.associate_route_table(
-        RouteTableId=route_table_id,
-        SubnetId=subnet_id
-    )
-    return response
