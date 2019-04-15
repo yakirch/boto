@@ -1,0 +1,9 @@
+AWS_ACCESS_KEY="XXXXXXX"
+AWS_SECRET_KEY="XXXXXX"
+PUBLIC_TAG = "Public_opsschool"
+PRIVATE_TAG = "Private_opsschool"
+MAPPING = {
+    PUBLIC_TAG: "10.24.0.0/23",
+    PRIVATE_TAG: "10.24.2.0/23"
+}
+DESTINATION = "0.0.0.0/0"

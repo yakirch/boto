@@ -1,0 +1,33 @@
+At this session we would continue our boto & python journey
+
+The session-2 directory contains several files:
+
+config.py: general configuration file
+parsing.py: module that contains functions for parsing (ex: arguments)
+awsops.py: module that contains several functions to create and manipulate aws resources
+subnets.py: cli script to create subnets
+routes.py: cli script to create route tables and associate to subnets
+natgateway.py: cli script to create nat gateways
+
+
+You will need to complete the main functions of subnets.py, route.py, natgateway.py to build your vpc
+
+Excercises:
+
+1) open subnets.py, you can see an example of public subnet creation, using functions from awsops
+   A) complete the script to create private subnet as well
+   B) Here is an example for running the script with arguments: ./subnets.py --vpc XXXXXXXX --region us-east-1 --az us-east-1a (you can choose other az if you like)
+   C) run pylint on subnets.py and fix what's needed
+
+2) open natgateway.py, the are few things to change in order to create a nat gateway:
+   A) in aws.get_subnet_id call replace "get-the-correct-tag-from-config" with the correct config (is it config.PUBLIC_TAG or config.PRIVATE_TAG ?)
+   B) use function wait_for_nat_gateway to wait till the nat gateway is in available state
+
+3) open routes.py, you can see an example for creating public route table, defult gateway route in the routing table and associate this table
+   with the subnets we tagged as public
+
+   A) complete the script and create private route table with route as the natgw you created at (2), assoicate the route table
+      with the private subnet
+   B) Here is an example for running the script with arguments: ./routes.py --vpcid your-vpc-id --region us-east-1 --internetgw your-igw-id --natgw your-natgw-id
+     
+4) Wrap each aws boto call in awsops.py with try/except (see example at allocate_address)
